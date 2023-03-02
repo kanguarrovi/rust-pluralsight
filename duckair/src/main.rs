@@ -1,11 +1,21 @@
 //#![allow(unused_variables)]
 
 fn main() {
-    //let my_variable_name: u32 = 0;
-    //let my_inferred_name = 0;
-    // let my_variable_name: 1_i8;
+    /*
+    let float_thirty_two: f32 = 17.2;
+    let unsigned_eight: u8 = 5;
+    let cast_unsigned_eight = unsigned_eight as f32;
 
-    let _warning_variable = 0; // For unused variables.
+    let result = float_thirty_two/ cast_unsigned_eight;
+
+    println!("{}", result);
+
+     */
+
+    let number = u8 = 65;
+    let letter: char  = number as char;
+
+    println!("{}", letter);
 
 }
 
