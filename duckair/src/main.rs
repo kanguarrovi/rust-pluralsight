@@ -1,22 +1,30 @@
 //#![allow(unused_variables)]
 
 fn main() {
-    // This is only used in bits operations.
+    const EARTH_RADIUS_IN_KILOMETERS: f64 = 6371.0;
 
-    let bitwise_and = 86 & 27;
-    println!("bitwise and: {}", bitwise_and);
+    let kcle_latitude_degrees: f64 = 41.4075;
+    let kcle_longitude_degrees: f64 = -81.851111;
 
-    let bitwise_or = 86 | 27;
-    println!("bitwise or: {}", bitwise_or);
+    let kslc_latitude_degrees: f64 = 40.7861;
+    let kslc_longitude_degrees: f64 = -111.9822;
 
-    let bitwise_xor = 86 ^ 27;
-    println!("bitwise xor: {}", bitwise_xor);
+    let kcle_latitude_radians = kcle_latitude_degrees.to_radians();
+    let kslc_latitude_radians = kslc_latitude_degrees.to_radians();
 
-    let left_shift = 86 << 1;
-    println!("left shift: {}", left_shift);
+    let delta_latitude = (kcle_latitude_degrees - kslc_latitude_radians).to_radians();
+    let delta_longitude = (kcle_longitude_degrees - kslc_longitude_degrees).to_radians();
 
-    let right_shift = 86 >> 1;
-    println!("right shift: {}", right_shift);
+    let inner_central_angle = f64::powi((delta_latitude / 2.0).sin(), 2)
+        + kcle_latitude_radians.cos()
+        * kslc_latitude_radians.cos()
+        * f64::powi((delta_longitude / 2.0).sin(), 2);
+
+    let central_angle = 2.0 * inner_central_angle.sqrt().asin();
+
+    let distance = EARTH_RADIUS_IN_KILOMETERS * central_angle;
+    // prints this one decimal value
+    println!("The distance between the two points is {:.1} kilometers", distance);
 
 }
 
