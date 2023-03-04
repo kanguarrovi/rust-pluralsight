@@ -1,18 +1,16 @@
 //#![allow(unused_variables)]
 
-enum NavigationAids {
-    NDB = 3,
-    VOR = 7,
-    VORDME, // This value will be 8.
-    FIX {name: String, latitude: f32, longitude: f32}
-}
-
-
 fn main() {
-    // u8 is casting into integer type.
-    println!("NDB:\t{}", NavigationAids::NDB as u8);
-    println!("VOR:\t{}", NavigationAids::VOR as u8);
-    println!("VORDME:\t{}", NavigationAids::VORDME as u8);
+    let ndb_freq:u16 = 384;
+
+    match ndb_freq {
+        ndb_freq if ndb_freq >= 200 && ndb_freq <= 500 => {
+            println!("NDB frequency is valid");
+        }
+        _ => {
+            println!("NDB frequency is not valid!")
+        }
+    }
 }
 
 
