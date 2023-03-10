@@ -1,28 +1,20 @@
+use std::io::{Error, Read};
 use std::fs::File;
-use std::io::ErrorKind;
 
 fn main(){
-    let filename = "customer.json";
-    match File::open(filename) {
-        Ok(file) => {
-            println!("{:#?}", file);
+    let filename = "ExampleData.txt";
+    let file_data = read_file(filename);
+    match file_data {
+        Ok(data) => {
+            println!("{}", data);
         }
-        Err(error) => {
-            match error.kind() {
-                ErrorKind::NotFound => {
-                    match File::create(filename) {
-                        Ok(file) => {
-                            println!("file created!");
-                        }
-                        Err(error) => {
-                            println!("{:#?}", error);
-                        }
-                    }
-                }
-                _ => {
-                    println!("{:#?}", error);
-                }
-            }
-        }
+        Err(_) => {}
     }
+}
+
+fn read_file(filename: &str) -> Result<String, Error>{
+    let mut file_handle = File::open(filename)?; // Exit the error and exit the function.
+    let mut file_data = String::new();
+    file_handle.read_to_string(&mut file_data)?;
+    Ok(file_data)
 }
