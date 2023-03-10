@@ -1,20 +1,30 @@
-use std::io::{Error, Read};
-use std::fs::File;
+#![allow(unused_variables)]
 
-fn main(){
-    let filename = "ExampleData.txt";
-    let file_data = read_file(filename);
-    match file_data {
-        Ok(data) => {
-            println!("{}", data);
-        }
-        Err(_) => {}
-    }
+struct Waypoint { //Capitalize every first letter of each word.
+    name: String,
+    latitude: f64,
+    longitude: f64
 }
 
-fn read_file(filename: &str) -> Result<String, Error>{
-    let mut file_handle = File::open(filename)?; // Exit the error and exit the function.
-    let mut file_data = String::new();
-    file_handle.read_to_string(&mut file_data)?;
-    Ok(file_data)
+struct Segment {
+    start: Waypoint,
+    end: Waypoint
+}
+
+fn main(){
+    const EARTH_RADIUS_IN_KILOMETERS: f64 = 6371.0;
+
+    let mut kcle = Waypoint{
+        name: "KCLE".to_string(),
+        latitude: 41.4075,
+        longitude: -81.851111
+    };
+
+    let ksle = Waypoint {
+        name: "KSLC".to_string(), // Overwrite
+      ..kcle // The name of the instance you want to reuse.
+    };
+
+    //kcle.latitude
+
 }
