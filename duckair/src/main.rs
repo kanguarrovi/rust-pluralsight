@@ -1,42 +1,26 @@
 #![allow(unused_variables)]
 
+use std::collections::{VecDeque};
+
 fn main(){
-    let mut flights: Vec<&str> = Vec::new(); // Generics
+    let mut flights:VecDeque<&str> = VecDeque::new();
 
-    // let vec_macro = vec![1,2,3,4];
-
-    flights.push("DA113\tto Boston departs at 06:20");
-    flights.push("DA98\tto London departs at 09:43");
-    flights.push("DA428\tto Salt Lake City departs at 12:05");
-    flights.push("DA41\tto Berlin departs at 15:30");
-    flights.push("DA2815\tto Nashville departs at 17:11");
-
-    for flight in flights.iter() {
-        println!("{}", flight);
-    }
-
-    let thrid = flights[2];
-    println!("\nThe third entry in vector is : {}\n", thrid);
-
-    let fourth = flights.get(3);
-    match fourth {
-        Some(flight) => {
-            println!("{}", flight);
-        }
-        _ => {}
-    }
-
-    if let Some(flight_value) = flights.get(4) {
-        println!("{}", flight_value);
-    }
-
-    flights.insert(2, "DA918\tto Orlando departs at 11:12");
+    flights.push_front("DA918\tto Orlando departs at 11:12");
+    flights.push_back("DA428\tto Salt Lake City departs at 12:05");
+    flights.push_front("DA98\tto London departs at 09:43");
+    flights.push_front("DA113\tto Boston departs at 06:20");
+    flights.push_back("DA41\tto Berlin departs at 15:30");
+    flights.push_back("DA2815\tto Nashville departs at 17:11");
 
     for flight in flights.iter(){
         println!("{}", flight);
     }
 
-    flights.remove(1);
+    flights.clear(); // Deletes all the values of the vector.g
 
+    let length = flights.len();
+    println!("There are {} flights", length);
 
+    let exists = flights.contains(&"DA98\tto London departs at 09:43");
+    println!("Element exists: {}", exists);
 }
