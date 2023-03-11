@@ -1,26 +1,29 @@
 #![allow(unused_variables)]
 
-use std::collections::{VecDeque};
-
 fn main(){
-    let mut flights:VecDeque<&str> = VecDeque::new();
 
-    flights.push_front("DA918\tto Orlando departs at 11:12");
-    flights.push_back("DA428\tto Salt Lake City departs at 12:05");
-    flights.push_front("DA98\tto London departs at 09:43");
-    flights.push_front("DA113\tto Boston departs at 06:20");
-    flights.push_back("DA41\tto Berlin departs at 15:30");
-    flights.push_back("DA2815\tto Nashville departs at 17:11");
+    let mut flights = HashMap::new();
 
-    for flight in flights.iter(){
-        println!("{}", flight);
+    flights.insert("DA918", ("11:12", "Orlando"));
+    flights.insert("DA428", ("12:05", "Salt LAke City"));
+    flights.insert("DA98", ("09:43", "London"));
+    flights.insert("DA115", ("06:20", "Boston"));
+    flights.insert("DA41", ("15:30", "Berlin"));
+    flights.insert("DA2815", ("17:11", "Nashville"));
+
+    let flight_number = "DA2815";
+
+    if !flight.contains_key(flight_number){
+        flight.insert(flight_number, ("12:00", "puerto Rico"));
+    } else {
+        println!("Flight {} is already entered", flight_number);
     }
 
-    flights.clear(); // Deletes all the values of the vector.g
+    let option = flights.get(flight_number);
+    let (time, destination) = option.unwrap();
+    println!("{} {}", time, destination);
 
-    let length = flights.len();
-    println!("There are {} flights", length);
-
-    let exists = flights.contains(&"DA98\tto London departs at 09:43");
-    println!("Element exists: {}", exists);
+    for flight in flight.iter(){
+        println!("{:.?}", flight);
+    }
 }
