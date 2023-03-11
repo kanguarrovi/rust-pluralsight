@@ -1,61 +1,42 @@
 #![allow(unused_variables)]
 
-struct Boeing {
-    required_crew: u8,
-    range: u16
-}
-
-struct Airbus {
-    required_crew: u8,
-    range: u16
-}
-
-trait Flight{
-    fn is_legal(&self, required_crew: u8, available_crew: u8, range: u16, distance: u16) -> bool;
-}
-
-impl Flight for Boeing {
-    fn is_legal(&self, required_crew: u8, available_crew: u8, range: u16, distance: u16) -> bool {
-        if (available_crew >= required_crew) && (range + 150 > distance) {
-            true
-        } else {
-            false
-        }
-    }
-}
-
-impl Flight for Airbus {
-    fn is_legal(&self, required_crew: u8, available_crew: u8, range: u16, distance: u16) -> bool {
-        if (available_crew >= required_crew) && (range + 280 > distance) {
-            true
-        } else {
-            false
-        }
-    }
-}
-
 fn main(){
-    let boeing = Boeing {
-        required_crew: 4,
-        range: 7370
-    };
+    let mut flights: Vec<&str> = Vec::new(); // Generics
 
-    let airbus = Airbus {
-        required_crew: 7,
-        range: 5280
-    };
+    // let vec_macro = vec![1,2,3,4];
 
-    let boeing_is_legal = boeing.is_legal(
-        boeing.required_crew, 18,
-        boeing.range, 2385
-    );
+    flights.push("DA113\tto Boston departs at 06:20");
+    flights.push("DA98\tto London departs at 09:43");
+    flights.push("DA428\tto Salt Lake City departs at 12:05");
+    flights.push("DA41\tto Berlin departs at 15:30");
+    flights.push("DA2815\tto Nashville departs at 17:11");
 
-    let airbus_is_legal = airbus.is_legal(
-        airbus.required_crew, 3,
-        airbus.range, 2200
-    );
+    for flight in flights.iter() {
+        println!("{}", flight);
+    }
 
-    println!("Is the Boeing flight legal? {}\n Is the Airbus flight legal? {}",
-             boeing_is_legal,
-             airbus_is_legal);
+    let thrid = flights[2];
+    println!("\nThe third entry in vector is : {}\n", thrid);
+
+    let fourth = flights.get(3);
+    match fourth {
+        Some(flight) => {
+            println!("{}", flight);
+        }
+        _ => {}
+    }
+
+    if let Some(flight_value) = flights.get(4) {
+        println!("{}", flight_value);
+    }
+
+    flights.insert(2, "DA918\tto Orlando departs at 11:12");
+
+    for flight in flights.iter(){
+        println!("{}", flight);
+    }
+
+    flights.remove(1);
+
+
 }
