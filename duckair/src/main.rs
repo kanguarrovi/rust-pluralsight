@@ -1,19 +1,18 @@
 #![allow(unused_variables)]
 
-use std::collections::HashSet;
-
 fn main(){
+    let vor = NavAid {
+        name: String::from("DQN"),
+        frequency: 114.5,
+        data: String::from("DQN is a VOR")
+    };
 
-    let mut flights = HashSet::new();
-
-    flights.insert( ("DA918", "11:12", "Orlando"));
-    flights.insert(("DA428", "12:05", "Salt LAke City"));
-    flights.insert(("DA98", "09:43", "London"));
-    flights.insert(("DA115", "06:20", "Boston"));
-    flights.insert(("DA41", "15:30", "Berlin"));
-    flights.insert(("DA2815", "17:11", "Nashville"));
-
-    for flight in flights.iter() {
-        println!("{:?}", flight);
-    }
+    let ndb_data:Option<String> = Option::None;
+    let ndb = NavAid{
+        name: String::from("HKF"),
+        frequency: 239,
+        data: ndb_data
+    };
+    println!("VOR information is: {:?}", vor);
+    println!("NDB information is: {:?}", ndb);
 }
