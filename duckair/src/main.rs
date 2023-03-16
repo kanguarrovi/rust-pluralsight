@@ -1,14 +1,20 @@
 #![allow(unused_variables)]
-use std::ops::{Add, Sub, Mul, Div};
 
+use std::thread;
+use std::thread::Thread;
 
 fn main(){
-    let sum = add(256, 262);
-    println!("{}", sum);
-}
+    let outer_scope = 412;
 
-fn add<T>(operand1: T, operand2: T) -> T
-where T: Add<Output=T> + Sub<Output=T> + Mul<Output=T> + Div<Output=T>
-{
-    operand1 + operand2
+    let join_handle = thread::spawn( move || {
+        outer_scope * 2
+    });
+
+    let result = join_handle.join();
+    match result {
+        Ok(value) => {
+            println!("{}", value);
+        }
+        Err(_) => {}
+    }
 }
