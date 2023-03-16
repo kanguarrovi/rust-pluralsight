@@ -1,18 +1,14 @@
 #![allow(unused_variables)]
+use std::ops::{Add, Sub, Mul, Div};
+
 
 fn main(){
-    let vor = NavAid {
-        name: String::from("DQN"),
-        frequency: 114.5,
-        data: String::from("DQN is a VOR")
-    };
+    let sum = add(256, 262);
+    println!("{}", sum);
+}
 
-    let ndb_data:Option<String> = Option::None;
-    let ndb = NavAid{
-        name: String::from("HKF"),
-        frequency: 239,
-        data: ndb_data
-    };
-    println!("VOR information is: {:?}", vor);
-    println!("NDB information is: {:?}", ndb);
+fn add<T>(operand1: T, operand2: T) -> T
+where T: Add<Output=T> + Sub<Output=T> + Mul<Output=T> + Div<Output=T>
+{
+    operand1 + operand2
 }
