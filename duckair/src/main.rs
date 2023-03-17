@@ -1,41 +1,29 @@
 #![allow(unused_variables)]
 
-use std::thread;
-use std::sync::mpsc;
-use std::sync::mpsc::{Receiver, Sender};
+mod geo;
+use geo::calculations::distance as distance_calc;
 
 fn main(){
-    let (john_tx, john_rx) = mpsc::channel();
-    let (sarah_tx, sarah_rx) =  mpsc::channel();
+   const EARTH_RADIUS_IN_KILOMETERS: f64 = 6371.0;
 
-    let john_handle = thread::spawn(move || {
-        john_chat(sarah_tx, john_rx);
-    });
 
-    let sarah_handle = thread::spawn(move || {
-        sarah_chat(john_tx, sarah_rx);
-    });
+   let kcle_latitude_degrees: f64 = 41.4075;
+   let kcle_longitude_degrees: f64 = -81.851111;
 
-    match john_handle.join(){
-        Ok(_) => {}
-        Err(_) => {}
-    }
 
-    match sarah_handle.join(){
-        Ok(_) => {}
-        Err(_) => {}
-    }
-}
+   let kslc_latitude_degrees: f64 = 40.7861;
+   let kslc_longitude_degrees: f64 = -111.9822;
 
-fn sarah_chat(john_tx:Sender<&str>, sarah_rx:Receiver<&str>){
-    let result = sarah_rx.recv();
-    println!("{}", result.unwrap());
-    let _send_result = john_tx.send("Hello John.");
+   let distance = distance_calc(
+      kcle_latitude_degrees,
+      kcle_longitude_degrees,
+      kslc_latitude_degrees,
+      kslc_longitude_degrees
+   );
 
-}
 
-fn john_chat(sarah_tx:Sender<&str>, john_rx:Receiver<&str>){
-    let _send_result = sarah_tx.send("Hello Sarah.");
-    let result = john_rx.recv();
-    println!("{}", result.unwrap());
+
+   // prints this one decimal value
+   println!("The distance between the two points is {:.1} kilometers", distance);
+
 }
